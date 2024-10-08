@@ -1,4 +1,8 @@
+from django.http import JsonResponse
 from ..models import Cronograma
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+from ..serializers import CronogramaSerializer
 
 def get_cronogramas():
     queryset = Cronograma.objects.all()
@@ -8,10 +12,3 @@ def create_cronograma(form):
     cronograma = form.save()
     cronograma.save()
     return ()
-
-def get_cronograma(id):
-    try:
-        cronograma = Cronograma.objects.get(id=id)
-        return {'existe': True, 'id': cronograma.id}
-    except Cronograma.DoesNotExist:
-        return None
